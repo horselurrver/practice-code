@@ -4,12 +4,9 @@ def hasWon(game):
     # check rows
     game.sort()
     for row in range(len(game)):
-        if game[row][0] == game[row][len(game) - 1] and game[row][0] != 0:
-            print(str(game[row][0]) + ' is the winner!');
+        if game[row][0] == game[row][1] and game[row][1] == game[row][2] and game[row][0] != 0:
             return game[row][0]
     # check diagonal
-    print(game)
-    print(game[0][0], game[1][1], game[2][2])
     if game[0][0] == game[1][1] and game[1][1] == game[2][2]:
         return game[0][0]
 
