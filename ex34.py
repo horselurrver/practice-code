@@ -14,6 +14,7 @@ def addPerson():
         birthday = raw_input('Please enter a birthday: ')
 
     with open('info.json', 'a') as f:
+        f.write('')
         json.dump({'name': name, 'birthday': birthday}, f)
 
 def findPerson():
