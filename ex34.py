@@ -1,19 +1,32 @@
 import json
 import re
 
-with open('info.json', 'r') as f:
-    info = json.loads(f)
-input = raw_input('Please enter a name: ')
-if info['name'] == input:
-    print('{}\'s birthday is {}'.format(info['name'], info['birthday']))
-print('Let\'s add a new person!')
-name = raw_input('Please enter a name: ')
+data = [json.loads(line) for line in open('info.json').readlines()]
 
-birthday = ''
-pattern = '[0-9]{2}/[0-9]{2}/[0-9]{4}'
+def addPerson():
+    birthday = ''
+    pattern = '[0-9]{2}/[0-9]{2}/[0-9]{4}'
 
-while not re.match(pattern, birthday):
-    birthday = raw_input('Please enter a birthday: ')
+    print('Let\'s add a new person!')
+    name = raw_input('Please enter a name: ')
 
-with open('info.json', 'w') as f:
-    json.dump({'name': name, 'birthday': birthday}, f)
+    while not re.match(pattern, birthday):
+        birthday = raw_input('Please enter a birthday: ')
+
+    with open('info.json', 'a') as f:
+        json.dump({'name': name, 'birthday': birthday}, f)
+
+def findPerson():
+    input = raw_input('Please enter a name: ')
+    for person in data:
+        if person['name'] == input:
+            print('{}\'s birthday is {}'.format(person['name'], person['birthday']))
+
+while True:
+    input = (raw_input('Would you like to add, find, or quit? ')).lower()
+    if input == 'add':
+        addPerson()
+    elif input == 'find':
+        findPerson()
+    else:
+        break
